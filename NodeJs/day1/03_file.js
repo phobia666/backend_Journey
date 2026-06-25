@@ -1,5 +1,7 @@
 const fs = require("fs")
-const { clearScreenDown } = require("readline")
+const os = require("os")
+
+console.log(os.cpus().length);
 
 //fs is a whole another module
 
