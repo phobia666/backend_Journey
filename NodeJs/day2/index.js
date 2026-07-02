@@ -7,7 +7,7 @@ const PORT = 8080
 //response jo server client ko deta hai
 const myServer = http.createServer((request, response) => {
 
-    const log = `\n ${Date.now()}: new request received`;
+    const log = `${Date.now()}: & from ${request.url} new request received\n`;
 
     fs.appendFile("log.txt", log, (err) => {
         if(err){
@@ -15,7 +15,7 @@ const myServer = http.createServer((request, response) => {
             response.statusCode = 500;
             response.end("Internal Server Error")
         }
-        response.end("Hello from the server")
+        response.end("Hello from the server") 
     })
 
 
