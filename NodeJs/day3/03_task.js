@@ -1,29 +1,57 @@
 const EventEmitter = require("events")
+const fs = require("fs");
 const emitter = new EventEmitter();
 
-let loginCount = 0;
-let logoutCount = 0;
-let purchaseCount = 0;
-let profileUpdateCount = 0;
+let eventCounts = {
+    loginCount : 0,
+    logoutCount : 0,
+    purchaseCount : 0,
+    profileUpdateCount : 0
+}
+const logFile = "eventlog.json"
+
+if(fs.existsSync(logFile)){
+    // eventCounts = JSON.parse(fs.readFileSync(logFile, "utf-8"));
+    //upar wali chize sahi dhang se likho niche
+
+    const data = fs.readFileSync(logFile, "utf-8");
+    Object.assign(eventCounts, JSON.parse(data))
+}
+
+
+function saveCounts(){
+    fs.writeFileSync(logFile, JSON.stringify(eventCounts, null, 2));
+}
+
+
 
 emitter.on("LOGIN", (args) => {
-    loginCount++;
+    eventCounts.loginCount++;
     console.log(`${args.username} logged IN😀`);
+    saveCounts()
 })
 
 emitter.on("LOGOUT", (args) => {
-    logoutCount++;
+    eventCounts.logoutCount++;
     console.log(`${args.username} logged OUT😔`);
+    saveCounts()
 })
 
 emitter.on("PURCHASE", (args) => {
-    purchaseCount++;
+    eventCounts.purchaseCount++;
     console.log(`${args.item} purchased successfully💰`);
+    saveCounts()
 })
 
 emitter.on("PROFILEUPDATE", (args) => {
-    profileUpdateCount++;
+    eventCounts.profileUpdateCount++;
     console.log(`profile updated✏️`);
+    saveCounts()
+})
+
+emitter.on("SUMMARY", () => {
+    console.log(eventCounts);
+
 })
 
 
@@ -36,11 +64,5 @@ emitter.emit("LOGIN", data)
 emitter.emit("LOGOUT", data)
 emitter.emit("PURCHASE", data)
 emitter.emit("PROFILEUPDATE", data)
+emitter.emit("SUMMARY")
 
-
-console.log({
-    loginCount,
-    logoutCount,
-    purchaseCount,
-    profileUpdateCount
-});
