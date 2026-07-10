@@ -14,5 +14,33 @@
 
 //now crypto time
 
-const os = require("crypto")
+const crypto = require("crypto")
+//used for authentication purposes
+//passwords and such
 
+// 1. randomBytes
+
+const randomValues = crypto.randomBytes(8)
+// console.log(randomValues);
+// console.log(randomValues.toString("hex"));
+
+
+// 2. Hash
+//username ko toh plain store krdeta h 
+//par password ko hash ke form me karta hai tokens ke form me
+//suraj( kafoefbefeffbjej121931472)
+
+const hashvalue = crypto.createHash("sha256").update('acehaze13').digest("hex")
+console.log(hashvalue);
+
+const inputValue = 'abhyanshu13'
+
+const matchValue = crypto.createHash("sha256").update(inputValue).digest("hex")
+
+if(hashvalue === matchValue){
+    console.log("user is logged in");
+}
+else{
+    console.log("something went wrong");
+}
+//dekha authentication
