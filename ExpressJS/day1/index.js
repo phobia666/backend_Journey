@@ -206,27 +206,6 @@ app.delete("/api/v1/users/:id", (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.listen(PORT, (req, res) => {
     console.log('server is running at Port', PORT);
 })
