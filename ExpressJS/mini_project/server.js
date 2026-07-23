@@ -33,10 +33,21 @@ if(!fs.existsSync(path.join(__dirname, "logs"))){
 // inbuilt middleware
 app.use(express.json());
 
-//Middleware to router
+
+
+// *Global Custom middleware
 app.use(logMiddleware);
+
+
+
+
+//Middleware to router
 app.use("/public", publicRoutes);
 app.use("/private", privateRoutes);
+
+
+
+
 
 
 

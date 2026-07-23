@@ -1,12 +1,20 @@
 import { Router } from "express";
-
+import authMiddleware from "../middleware/auth.middleware.js";
 const router = Router();
+
+
+
+
 
 //dashboard (accesstoken)
 
-router.get("/dashboard", (req, res) => {
+//ab hoga authentication whi token ham header ke thru bhejenge
+//and this will happen inside authMiddleware
+
+router.get("/dashboard", authMiddleware , (req, res) => {
     res.status(200).send({
-        message : "Welcome to dashboard"
+        
+        message : `Welcome to the dashboard ${req.user.name}`
     })
 })
 
